@@ -15,3 +15,5 @@ npm test
 ```
 npm start
 ```
+
+Browse http://localhost:3000

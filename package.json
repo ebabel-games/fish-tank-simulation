@@ -4,7 +4,8 @@
   "description": "Fish tank simulation.",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "node ./node_modules/.bin/mocha",
+    "start": "node ./index.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,13 @@
   "bugs": {
     "url": "https://github.com/ebabel-eu/fish-tank-simulation/issues"
   },
-  "homepage": "https://github.com/ebabel-eu/fish-tank-simulation#readme"
+  "homepage": "https://github.com/ebabel-eu/fish-tank-simulation#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
 }
