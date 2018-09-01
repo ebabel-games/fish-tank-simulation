@@ -1,0 +1,22 @@
+{
+  "name": "fish-tank-simulation",
+  "version": "1.0.0",
+  "description": "Fish tank simulation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebabel-eu/fish-tank-simulation.git"
+  },
+  "keywords": [
+    "simulation"
+  ],
+  "author": "Thomas Amar <hello@ebabel.eu>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ebabel-eu/fish-tank-simulation/issues"
+  },
+  "homepage": "https://github.com/ebabel-eu/fish-tank-simulation#readme"
+}
