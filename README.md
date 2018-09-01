@@ -1,4 +1,4 @@
-# fish-tank-simulation
+# Fish tank simulation
 Node.js server-side simulation of an aquarium
 
 ## Install
