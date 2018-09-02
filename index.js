@@ -1,14 +1,16 @@
 const express = require('express');
-const app = express();
+const api = express();
 
-const fishes = [];
+// Default data store when the aquarium starts.
+const dataStore = {
+  fishes: []
+};
 
+const { getFishes, postFish } = require('./src/fishes')(dataStore);
 
+api.get('/', getFishes);
+api.post('/', postFish);
 
-app.get('/fishes', (req, res) => res.send('Your aquarium fish population: ' + fishes.length));
+api.listen(3000, () => console.log('API listening on port 3000.'));
 
-app.get('/', (req, res) => res.send('Welcome to your virtual aquarium'));
-
-app.listen(3000, () => console.log('App listening on port 3000'));
-
-module.exports = app;
+module.exports = api;
