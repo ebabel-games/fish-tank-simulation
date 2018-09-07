@@ -33,6 +33,7 @@ module.exports = (dataStore) => {
 
       dataStore.fishes.push(newFish);
 
+      res.status(201);
       res.send({
         description: descriptions.fishes.put,
         newFish,
