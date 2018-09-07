@@ -1,13 +1,16 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const api = express();
 
-// Default data store when the aquarium starts.
+// Default data store when the simulation starts.
 const dataStore = {
-  fishes: []
+  fishes: [],
+  tick: []
 };
 
 const { getFishes, putFish } = require('./fishes')(dataStore);
 
+api.use(bodyParser.json());
 api.get('/', getFishes);
 api.put('/', putFish);
 
