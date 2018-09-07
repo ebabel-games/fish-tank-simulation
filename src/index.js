@@ -5,14 +5,16 @@ const api = express();
 // Default data store when the simulation starts.
 const dataStore = {
   fishes: [],
-  tick: []
+  ticks: []
 };
 
 const { getFishes, putFish } = require('./fishes')(dataStore);
+const { getTicks } = require('./ticks')(dataStore);
 
 api.use(bodyParser.json());
 api.get('/', getFishes);
 api.put('/', putFish);
+api.get('/ticks', getTicks);
 
 let port = 8080;  // default while developing.
 if (process.env.NODE_ENV === 'test') {

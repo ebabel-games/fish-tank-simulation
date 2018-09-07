@@ -10,7 +10,7 @@ process.env.NODE_ENV = 'test';
 const Index = require('../src/index');
 const descriptions = require('../src/descriptions.json');
 
-describe('API', () => {
+describe('API fishes entity', () => {
   it('should return a 200 http status, json type, an array of fishes, and expected body description', (done) => {
     chai.request(Index)
       .get('/')

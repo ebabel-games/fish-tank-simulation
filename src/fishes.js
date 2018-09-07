@@ -1,9 +1,5 @@
 const descriptions = require('./descriptions.json');
-
-const random = max => Math.ceil(Math.random() * (max || 100));
-const dice = () => random(6);
-const trait = () => dice() + dice() + dice();
-const positive = (input) =>  Math.ceil(Math.abs(input));
+const { random, trait, positive } = require('./utils.js');
 
 module.exports = (dataStore) => {
   return {
@@ -39,7 +35,8 @@ module.exports = (dataStore) => {
         life: positive(stamina + agility - strength) || 1,
         attack: positive((strength * 3) - (agility * 1.5)),
         defence: positive((agility * 3) - (strength * 1.5)),
-        spawnTick
+        spawnTick,
+        spawnCoordinates: [random(300) - 150, random(300) - 150, random(300) - 150]
       };
 
       dataStore.fishes.push(newFish);
