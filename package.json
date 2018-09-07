@@ -7,8 +7,8 @@
     "test": "npm run eslint && npm run mocha",
     "mocha": "node ./node_modules/.bin/mocha --exit",
     "eslint": "node ./node_modules/.bin/eslint ./src/*.js",
-    "production": "export NODE_ENV=production&& babel-node ./src/index.js",
-    "start": "babel-node ./src/index.js"
+    "production": "export NODE_ENV=production&& node ./src/index.js",
+    "start": "node ./src/index.js"
   },
   "repository": {
     "type": "git",
