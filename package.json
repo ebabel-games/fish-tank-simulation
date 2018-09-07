@@ -4,8 +4,11 @@
   "description": "Fish tank simulation.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/.bin/mocha",
-    "start": "node ./index.js"
+    "test": "npm run eslint && npm run mocha",
+    "mocha": "node ./node_modules/.bin/mocha --exit",
+    "eslint": "node ./node_modules/.bin/eslint ./src/*.js",
+    "production": "export NODE_ENV=production&& babel-node ./src/index.js",
+    "start": "babel-node ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,8 +27,10 @@
     "express": "^4.16.3"
   },
   "devDependencies": {
+    "babel-eslint": "^9.0.0",
     "chai": "^4.1.2",
     "chai-http": "^4.2.0",
+    "eslint": "^5.5.0",
     "mocha": "^5.2.0"
   }
 }

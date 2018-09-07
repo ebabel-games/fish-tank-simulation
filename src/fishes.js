@@ -1,3 +1,5 @@
+const descriptions = require('./descriptions.json');
+
 const random = max => Math.ceil(Math.random() * (max || 100));
 const dice = () => random(6);
 const trait = () => dice() + dice() + dice();
@@ -6,17 +8,17 @@ const positive = (input) =>  Math.ceil(Math.abs(input));
 module.exports = (dataStore) => {
   return {
     getFishes: (req, res) => res.send({
-      description: 'List all the fishes ever spawned, regardless of their current status, and with their default spawn values.',
+      description: descriptions.fishes.get,
       fishes: dataStore.fishes,
       links: [
         {
-          method: 'POST',
+          method: 'PUT',
           path: '/',
-          description: 'Create a new fish. The fish is randomly generated, so there is no payload, but the response will return the fish that has just been created.'
+          description: descriptions.fishes.put
         }
       ]
     }),
-    postFish: (req, res) => {
+    putFish: (req, res) => {
       const strength = trait();
       const stamina = trait();
       const agility = trait();
@@ -32,13 +34,13 @@ module.exports = (dataStore) => {
       dataStore.fishes.push(newFish);
 
       res.send({
-        description: 'Create a new fish generated randomly.',
+        description: descriptions.fishes.put,
         newFish,
         links: [
           {
             method: 'GET',
             path: '/',
-            description: 'List all the fishes ever spawned, regardless of their current status, and with their default spawn values.'
+            description: descriptions.fishes.get
           }
         ]
       });
