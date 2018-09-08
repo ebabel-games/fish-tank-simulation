@@ -11,7 +11,7 @@ const AQUARIUM_DEPTH = AQUARIUM_HEIGHT;                   // z
 // Default data store when the simulation starts.
 const dataStore = {
   fishes: [],
-  ticks: [],
+  ticks: [{ id: 0 }],
   aquarium: {
     tick: 0,
     location: [0, 0, 0],

@@ -5,7 +5,7 @@ const createTick = (dataStore, tick) => {
 
   let ticksToCreate = 1;
 
-  if (tick !== undefined && dataStore.ticks.length > 0 && tick > _highestTick) {
+  if (tick !== undefined && tick > _highestTick) {
     ticksToCreate = tick - _highestTick;
   }
 
