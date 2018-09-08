@@ -17,15 +17,9 @@ const randomLocation = (dimensions) => {
 
 const highestTick = (ticks) => Math.max(...ticks.map(tick => tick.id));
 
-const randomTick = (ticks) => {
-  const max = 10;
-
-  if (!ticks || ticks.length === 0) {
-    return random(max);
-  }
-
-  return highestTick(ticks) + random(max);
-};
+const randomTick = (ticks, max = 10) => (!ticks || ticks.length === 0) ?
+    random(max)
+    : highestTick(ticks) + random(max);
 
 const host = (connection, headers) => `${connection.encrypted ? 'https' : 'http'}://${headers.host}`;
 

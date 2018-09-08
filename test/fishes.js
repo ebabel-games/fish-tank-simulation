@@ -25,7 +25,7 @@ describe('API fishes entity', () => {
       });
   });
 
-  it('should create a new fish, and expected fish properties', (done) => {
+  it('should create a new fish, and get expected fish properties', (done) => {
     chai.request(Index)
       .put('/fishes')
       .set('Accept', 'application/json')

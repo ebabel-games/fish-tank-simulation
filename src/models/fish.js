@@ -1,6 +1,6 @@
 const { trait, positive, randomLocation, randomTick } = require('../utils.js');
 
-const create = (dataStore, tick) => {
+const createFish = (dataStore, tick) => {
   const strength = trait();
   const stamina = trait();
   const agility = trait();
@@ -20,5 +20,5 @@ const create = (dataStore, tick) => {
 };
 
 module.exports = {
-  create
+  createFish
 };

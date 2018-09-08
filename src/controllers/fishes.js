@@ -1,6 +1,7 @@
 const descriptions = require('../descriptions.json');
 const { host } = require('../utils');
-const { create } = require('../models/fish');
+const { createFish } = require('../models/fish');
+const { createTick } = require('../models/tick');
 
 module.exports = (dataStore) => {
   return {
@@ -25,10 +26,15 @@ module.exports = (dataStore) => {
     },
     putFish: (req, res) => {
       const _host = host(req.connection, req.headers);
-      const fish = create(dataStore, req.body.tick);
+      const fish = createFish(dataStore, req.body.tick);
 
       // Add new data to the store.
       dataStore.fishes.push(fish);
+
+      // Since a fish has been scheduled to spawn at a specific tick,
+      // the simulation needs to make sure all intervening ticks are also created
+      // until the tick when that fish spawns.
+      dataStore.ticks = dataStore.ticks.concat(createTick(dataStore, fish.tick));
 
       res.status(201);
       res.json({

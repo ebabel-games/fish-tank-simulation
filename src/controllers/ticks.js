@@ -1,6 +1,6 @@
 const descriptions = require('../descriptions.json');
 const { host } = require('../utils');
-const { create } = require('../models/tick');
+const { createTick } = require('../models/tick');
 
 module.exports = (dataStore) => {
   return {
@@ -25,7 +25,7 @@ module.exports = (dataStore) => {
     },
     putTick: (req, res) => {
       const _host = host(req.connection, req.headers);
-      const ticks = create(dataStore, req.body.tick);
+      const ticks = createTick(dataStore, req.body.tick);
 
       // Add a range of ticks (one or several) to the data store.
       dataStore.ticks = dataStore.ticks.concat(ticks);

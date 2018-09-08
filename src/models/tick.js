@@ -1,6 +1,6 @@
 const { highestTick } = require('../utils');
 
-const create = (dataStore, tick) => {
+const createTick = (dataStore, tick) => {
   const _highestTick = highestTick(dataStore.ticks);
 
   let ticksToCreate = 1;
@@ -24,5 +24,5 @@ const create = (dataStore, tick) => {
 };
 
 module.exports = {
-  create
+  createTick
 };

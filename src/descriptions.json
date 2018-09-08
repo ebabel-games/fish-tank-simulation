@@ -4,7 +4,7 @@
   },
   "fishes": {
     "get": "List all the fishes ever spawned, regardless of their current status, and with their default spawn values.",
-    "put": "Create a new, randomly generated, fish. The response will return the fish that has just been created. This call is not idempotent: it should be but I decided it is overkill for this simple project."
+    "put": "Create a new fish. The response will return the fish that has just been created. This call is not idempotent: it should be but I decided it is overkill for this simple project. Note that more ticks will also be created to fill in all the ticks until the created fish spawn."
   },
   "ticks": {
     "get": "List all the ticks ever created.",
