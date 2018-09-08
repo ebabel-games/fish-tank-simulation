@@ -28,7 +28,7 @@ module.exports = (dataStore) => {
         ? random(10000)
         : req.body.spawnTick;
 
-      const newFish = {
+      const fish = {
         strength,
         stamina,
         agility,
@@ -39,12 +39,12 @@ module.exports = (dataStore) => {
         spawnCoordinates: [random(300) - 150, random(300) - 150, random(300) - 150]
       };
 
-      dataStore.fishes.push(newFish);
+      dataStore.fishes.push(fish);
 
       res.status(201);
       res.json({
         description: descriptions.fishes.put,
-        newFish,
+        fish,
         links: [
           {
             method: 'GET',
