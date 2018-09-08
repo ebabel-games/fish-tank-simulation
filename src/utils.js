@@ -23,6 +23,8 @@ const randomTick = (ticks, max = 10) => (!ticks || ticks.length === 0) ?
 
 const host = (connection, headers) => `${connection.encrypted ? 'https' : 'http'}://${headers.host}`;
 
+const deepCopy = (input) => JSON.parse(JSON.stringify(input));
+
 module.exports = {
   random,
   dice,
@@ -31,5 +33,6 @@ module.exports = {
   randomLocation,
   highestTick,
   randomTick,
-  host
+  host,
+  deepCopy
 };

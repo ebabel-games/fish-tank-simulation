@@ -1,6 +1,6 @@
 const { trait, positive, randomLocation, randomTick } = require('../utils.js');
 
-const createFish = (dataStore, tick) => {
+const createFish = (dataStore) => {
   const strength = trait();
   const stamina = trait();
   const agility = trait();
@@ -13,7 +13,7 @@ const createFish = (dataStore, tick) => {
     life,
     attack: positive((strength * 3) - (agility * 1.5)),
     defence: positive((agility * 3) - (strength * 1.5)),
-    tick: (tick === undefined) ? randomTick(dataStore.ticks) : tick,
+    tick: randomTick(dataStore.ticks),
     location: randomLocation(dataStore.aquarium.dimensions),
     dimensions: [life * 2, life, life]
   };

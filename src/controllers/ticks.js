@@ -27,9 +27,6 @@ module.exports = (dataStore) => {
       const _host = host(req.connection, req.headers);
       const ticks = createTick(dataStore, req.body.tick);
 
-      // Add a range of ticks (one or several) to the data store.
-      dataStore.ticks = dataStore.ticks.concat(ticks);
-
       res.status(201);
       res.json({
         description: descriptions.ticks.put,
