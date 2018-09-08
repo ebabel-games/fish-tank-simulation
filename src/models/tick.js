@@ -14,10 +14,12 @@ const create = (dataStore, tick) => {
   }
 
   let increment = 1;
-  return new Array(ticksToCreate).fill({}).map((_tick) => {
-    _tick.id = (dataStore.ticks.length === 0) ? 0 : _highestTick + increment;
+  return new Array(ticksToCreate).fill({}).map(() => {
+    const id = (dataStore.ticks.length === 0) ? 0 : _highestTick + increment;
     increment = increment + 1;
-    return _tick;
+    return {
+      id
+    };
   });
 };
 
