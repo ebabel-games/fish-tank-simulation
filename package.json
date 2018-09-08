@@ -6,9 +6,10 @@
   "scripts": {
     "test": "npm run eslint && npm run mocha",
     "mocha": "node ./node_modules/.bin/mocha --exit",
-    "eslint": "node ./node_modules/.bin/eslint ./src/*.js",
+    "eslint": "node ./node_modules/.bin/eslint ./src/*.js ./src/**/*.js",
     "production": "export NODE_ENV=production&& node ./src/index.js",
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js",
+    "prepush": "npm test"
   },
   "repository": {
     "type": "git",
