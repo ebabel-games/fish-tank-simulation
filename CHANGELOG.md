@@ -1,5 +1,8 @@
 # Fish tank simulation changelog
 
+## 1.3.0
+- Fish swim from tick to tick
+
 ## 1.2.0
 - When a tick is created, it needs to track which fish is where
 
