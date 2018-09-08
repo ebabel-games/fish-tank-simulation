@@ -25,7 +25,7 @@ module.exports = (dataStore) => {
       const _host = host(req.connection, req.headers);
       const fish = createFish(dataStore);
 
-      // Add new data to the store.
+      // Add a new fish to the store.
       dataStore.fishes.push(fish);
 
       // Since a fish has been scheduled to spawn at a specific tick,

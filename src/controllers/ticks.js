@@ -15,17 +15,14 @@ module.exports = (dataStore) => {
           {
             method: 'PUT',
             url: `${_host}/ticks`,
-            description: descriptions.ticks.put,
-            payload: {
-              tick: 'Integer'
-            }
+            description: descriptions.ticks.put
           }
         ]
       });
     },
     putTick: (req, res) => {
       const _host = host(req.connection, req.headers);
-      const ticks = createTick(dataStore, req.body.tick);
+      const ticks = createTick(dataStore);
 
       res.status(201);
       res.json({
