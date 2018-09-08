@@ -19,10 +19,7 @@ module.exports = (dataStore) => {
           {
             method: 'PUT',
             url: `${_host}/fishes`,
-            description: descriptions.fishes.put,
-            payload: {
-              tick: 'Integer?'
-            }
+            description: descriptions.fishes.put
           },
           {
             method: 'GET',
