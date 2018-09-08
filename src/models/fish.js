@@ -14,8 +14,7 @@ const createFish = (dataStore) => {
     attack: positive((strength * 3) - (agility * 1.5)),
     defence: positive((agility * 3) - (strength * 1.5)),
     tick: randomTick(dataStore.ticks),
-    location: randomLocation(dataStore.aquarium.dimensions),
-    dimensions: [life * 2, life, life]
+    location: randomLocation(dataStore.aquarium.dimensions)
   };
 };
 
