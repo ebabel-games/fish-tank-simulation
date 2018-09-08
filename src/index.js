@@ -2,19 +2,36 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const api = express();
 
+// Aquarium.
+const GOLDEN_RATIO = 1.61803398875;
+const AQUARIUM_HEIGHT = Math.ceil(GOLDEN_RATIO * 1000);   // y
+const AQUARIUM_WIDTH = AQUARIUM_HEIGHT * 2;               // x
+const AQUARIUM_DEPTH = AQUARIUM_HEIGHT;                   // z
+
 // Default data store when the simulation starts.
 const dataStore = {
   fishes: [],
-  ticks: []
+  ticks: [],
+  aquarium: {
+    tick: 0,
+    location: [0, 0, 0],
+    dimensions: [AQUARIUM_WIDTH, AQUARIUM_HEIGHT, AQUARIUM_DEPTH]
+  }
 };
 
-const { getFishes, putFish } = require('./fishes')(dataStore);
-const { getTicks } = require('./ticks')(dataStore);
-
+api.settings['x-powered-by'] = false;
 api.use(bodyParser.json());
-api.get('/', getFishes);
-api.put('/', putFish);
+
+const { getDataStore } = require('./controllers/data-store')(dataStore);
+const { getFishes, putFish } = require('./controllers/fishes')(dataStore);
+const { getTicks, putTick } = require('./controllers/ticks')(dataStore);
+
+// Routes.
+api.get('/', getDataStore);
+api.get('/fishes', getFishes);
+api.put('/fishes', putFish);
 api.get('/ticks', getTicks);
+api.put('/ticks', putTick);
 
 let port = 8080;  // default while developing.
 if (process.env.NODE_ENV === 'test') {
@@ -26,7 +43,7 @@ if (process.env.NODE_ENV === 'production') {
 
 api.listen(
   port,
-  () => console.log('API listening on port ' + port) /* eslint no-console: 0 */
+  () => console.log('API listening on port %s', port) /* eslint no-console: 0 */
 );
 
 module.exports = api;

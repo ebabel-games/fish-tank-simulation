@@ -13,7 +13,7 @@ const descriptions = require('../src/descriptions.json');
 describe('API fishes entity', () => {
   it('should return a 200 http status, json type, an array of fishes, and expected body description', (done) => {
     chai.request(Index)
-      .get('/')
+      .get('/fishes')
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) console.error(err);   /* eslint no-console: 0 */
@@ -27,7 +27,7 @@ describe('API fishes entity', () => {
 
   it('should create a new fish, and expected fish properties', (done) => {
     chai.request(Index)
-      .put('/')
+      .put('/fishes')
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) console.error(err);   /* eslint no-console: 0 */

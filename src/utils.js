@@ -3,9 +3,39 @@ const dice = () => random(6);
 const trait = () => dice() + dice() + dice();
 const positive = (input) =>  Math.ceil(Math.abs(input));
 
+const randomLocation = (dimensions) => {
+  const width = dimensions[0];
+  const height = dimensions[1];
+  const depth = dimensions[2];
+
+  return [
+    Math.floor(random(width) - width / 2),
+    Math.floor(random(height) - height / 2),
+    Math.floor(random(depth) - depth / 2)
+  ];
+};
+
+const highestTick = (ticks) => Math.max(...ticks.map(tick => tick.id));
+
+const randomTick = (ticks) => {
+  const max = 10;
+
+  if (!ticks || ticks.length === 0) {
+    return random(max);
+  }
+
+  return highestTick(ticks) + random(max);
+};
+
+const host = (connection, headers) => `${connection.encrypted ? 'https' : 'http'}://${headers.host}`;
+
 module.exports = {
   random,
   dice,
   trait,
-  positive
+  positive,
+  randomLocation,
+  highestTick,
+  randomTick,
+  host
 };
