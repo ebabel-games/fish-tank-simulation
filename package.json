@@ -8,8 +8,7 @@
     "mocha": "node ./node_modules/.bin/mocha --exit",
     "eslint": "node ./node_modules/.bin/eslint ./src/*.js ./src/**/*.js",
     "production": "export NODE_ENV=production&& node ./src/index.js",
-    "start": "node ./src/index.js",
-    "prepush": "npm test"
+    "start": "node ./src/index.js"
   },
   "repository": {
     "type": "git",
