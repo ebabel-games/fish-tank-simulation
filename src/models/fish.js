@@ -18,7 +18,7 @@ const createFish = (dataStore) => {
     tick,
     location: randomLocation(dataStore.aquarium.dimensions),
     fightMode: false,
-    agroList: []
+    killList: []
   };
 };
 

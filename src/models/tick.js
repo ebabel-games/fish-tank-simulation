@@ -39,44 +39,49 @@ const createTick = (dataStore, tick) => {
       state.fishes.push(deepCopy(fish[0]));
     }
 
-    // Is there any fish nearby so they should switch their fightMode to true?
-    state.fishes = state.fishes.map(fish => {
-      // Since fish has died, it will be removed from state.
-      if (fish.life <= 0) return undefined;
+    for (let i = 0, l = state.fishes.length; i < l; i++) {
+      const fish = state.fishes[i];
 
-      // fish is still alive, so he will check if it is close enough to all other fishes,
-      // and if so, try to not be eaten by otherFish.
-      state.fishes.filter(otherFish => otherFish.name !== fish.name).map((otherFish) => {
+      if (fish.life <= 0) continue;
+
+      for (let i2 = 0; i2 < l; i2++) {
+        let otherFish = state.fishes[i2];
+
+        if (otherFish.life <= 0) continue;
+
+        if (fish.name === otherFish.name) continue; // a fish will not attack himself.
+
         const _distance = distance(fish.location, otherFish.location);
-        if (_distance > 64 || otherFish.life <= 0 || fish.life <= 0) return otherFish;
-        
-        // The fish and the otherFish are close enough to fight.
+        if (_distance > 64) continue; // fishes that are too far appart to attack each other.
+
+        // Set both fish and otherFish fightMode to true, so they stop swimming.
         fish.fightMode = true;
+        otherFish.fightMode = true;
 
-        // Add otherFish to fish agro list.
-        if (!fish.agroList.includes(otherFish.name) && otherFish.life > 0)
-          fish.agroList.push(otherFish.name);
-
-        // If otherFish is dead, remove him from fish agroList.
-        if (fish.agroList.includes(otherFish.name) && otherFish.life <= 0)
-          fish.agroList.splice(fish.agroList.indexOf(otherFish.name), 1);
-
-        // otherFish attacks fish, and may inflict damage.
-        const attackBonus = (otherFish.attack > fish.defence) ? otherFish.attack - fish.defence : 1;
+        let attackBonus = fish.attack - otherFish.defence;
+        if (attackBonus < 2) attackBonus = 2;
         if (dice() <= attackBonus) {
           const damage = dice();
-          fish.life -= damage;
-          console.log(`${otherFish.name} hits ${fish.name} for ${damage} damage.`); /* eslint no-console: 0 */
+          otherFish.life -= damage;
+          console.log(`${fish.name} bites ${otherFish.name} for ${damage} damage.`); /* eslint no-console: 0 */
+        } else {
+          console.log(`${fish.name} tries to bite ${otherFish.name} but misses.`); /* eslint no-console: 0 */
         }
 
-        // Is fish still alive?
-        if (fish.life <= 0) {
-          console.log(`${fish.name} has died, killed by ${otherFish.name}.`); /* eslint no-console: 0 */
+        if (otherFish.life <= 0) {
+          fish.fightMode = false;
+          const bonusLife = dice() + dice() + dice();
+          fish.life += bonusLife;
+          fish.killList.push(otherFish.name);
+          console.log(`${otherFish.name} has died, eaten by ${fish.name}.`); /* eslint no-console: 0 */
+          console.log(`Kill list of ${fish.name}: ${fish.killList.join(', ')}.`); /* eslint no-console: 0 */
+          console.log(`${fish.name} wins a bonus ${bonusLife} life!`); /* eslint no-console: 0 */
         }
-      });
+      }
+    }
 
-      return fish;
-    }).filter(fish => fish && fish.life > 0);  // Remove dead fishes.
+    // Remove dead fishes.
+    state.fishes = state.fishes.filter(fish => fish.life > 0);
 
     // Commit new tick state to the data store.
     dataStore.ticks[id] = deepCopy(state);
