@@ -41,18 +41,15 @@ const createTick = (dataStore, tick) => {
 
     for (let i = 0, l = state.fishes.length; i < l; i++) {
       const fish = state.fishes[i];
-
       if (fish.life <= 0) continue;
 
       for (let i2 = 0; i2 < l; i2++) {
         let otherFish = state.fishes[i2];
-
         if (otherFish.life <= 0) continue;
-
         if (fish.name === otherFish.name) continue; // a fish will not attack himself.
 
         const _distance = distance(fish.location, otherFish.location);
-        if (_distance > 64) continue; // fishes that are too far appart to attack each other.
+        if (_distance > 32) continue; // fishes that are too far appart to attack each other.
 
         // Set both fish and otherFish fightMode to true, so they stop swimming.
         fish.fightMode = true;
@@ -63,7 +60,7 @@ const createTick = (dataStore, tick) => {
         if (dice() <= attackBonus) {
           const damage = dice();
           otherFish.life -= damage;
-          console.log(`${fish.name} bites ${otherFish.name} for ${damage} damage.`); /* eslint no-console: 0 */
+          console.log(`${fish.name} bites ${otherFish.name} for ${damage} damage${damage > 1 ? 's' : ''}.`); /* eslint no-console: 0 */
         } else {
           console.log(`${fish.name} tries to bite ${otherFish.name} but misses.`); /* eslint no-console: 0 */
         }
@@ -74,7 +71,6 @@ const createTick = (dataStore, tick) => {
           fish.life += bonusLife;
           fish.killList.push(otherFish.name);
           console.log(`${otherFish.name} has died, eaten by ${fish.name}.`); /* eslint no-console: 0 */
-          console.log(`Kill list of ${fish.name}: ${fish.killList.join(', ')}.`); /* eslint no-console: 0 */
           console.log(`${fish.name} wins a bonus ${bonusLife} life!`); /* eslint no-console: 0 */
         }
       }
