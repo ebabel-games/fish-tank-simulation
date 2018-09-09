@@ -16,25 +16,22 @@ module.exports = (dataStore) => {
           {
             method: 'PUT',
             url: `${_host}/fishes`,
-            description: descriptions.fishes.put,
-            payload: {
-              tick: 'Integer'
-            }
+            description: descriptions.fishes.put
           }
         ]
       });
     },
     putFish: (req, res) => {
       const _host = host(req.connection, req.headers);
-      const fish = createFish(dataStore, req.body.tick);
+      const fish = createFish(dataStore);
+
+      // Add a new fish to the data store.
+      dataStore.fishes.push(fish);
 
       // Since a fish has been scheduled to spawn at a specific tick,
       // the simulation needs to make sure all intervening ticks are also created
       // until the tick when that fish spawns.
-      dataStore.ticks = dataStore.ticks.concat(createTick(dataStore, fish.tick));
-
-      // Add new data to the store.
-      dataStore.fishes.push(fish);
+      createTick(dataStore, fish.tick);
 
       res.status(201);
       res.json({

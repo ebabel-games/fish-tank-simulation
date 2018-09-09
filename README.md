@@ -16,9 +16,7 @@ npm test
 npm start
 ```
 
-Browse http://localhost:3000
+Browse http://localhost:8080
 
 # Features to develop
-- When a tick is created, it needs to track which fish is where
-- Fish swim from tick to tick
-- Fish attack each other
+- Fishes attack each other.

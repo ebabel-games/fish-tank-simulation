@@ -2,6 +2,7 @@ const random = (max) => Math.ceil(Math.random() * (max || 100));
 const dice = () => random(6);
 const trait = () => dice() + dice() + dice();
 const positive = (input) =>  Math.ceil(Math.abs(input));
+const randomPosOrNeg = (max) => (Math.random() < 0.5 ? -1 : 1) * random(max);
 
 const randomLocation = (dimensions) => {
   const width = dimensions[0];
@@ -23,6 +24,8 @@ const randomTick = (ticks, max = 10) => (!ticks || ticks.length === 0) ?
 
 const host = (connection, headers) => `${connection.encrypted ? 'https' : 'http'}://${headers.host}`;
 
+const deepCopy = (input) => JSON.parse(JSON.stringify(input));
+
 module.exports = {
   random,
   dice,
@@ -31,5 +34,7 @@ module.exports = {
   randomLocation,
   highestTick,
   randomTick,
-  host
+  host,
+  deepCopy,
+  randomPosOrNeg
 };
