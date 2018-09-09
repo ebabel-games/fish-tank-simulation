@@ -30,7 +30,8 @@ const createTick = (dataStore, tick) => {
     }
 
     // All existing fishes should swim to a random point near them.
-    state.fishes = swimFishes(state.fishes, dataStore);
+    // Note: only fishes that are not in fight mode will move.
+    state.fishes = swimFishes(state.fishes.filter(fish => !fish.fightMode), dataStore);
 
     // Is a fish spawned in the current tick?
     const fish = dataStore.fishes.filter(fish => fish.tick === id);
@@ -38,6 +39,12 @@ const createTick = (dataStore, tick) => {
     if (fish && fish.length > 0) {
       state.fishes.push(deepCopy(fish[0]));
     }
+
+    // todo: Is there any fish nearby so they should switch their fightMode to true?
+    
+
+    // todo: Get one round of fighting for all fishes that are in fight mode. Inflict damage on each fish that gets hurt.
+
 
     // Commit new tick state to the data store.
     dataStore.ticks[id] = deepCopy(state);
