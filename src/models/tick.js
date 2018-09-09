@@ -47,15 +47,23 @@ const createTick = (dataStore, tick) => {
         
         // The fish and the otherFish are close enough to fight.
         fish.fightMode = true;
-        if (!fish.fightTargets.includes(otherFish.name))
-          fish.fightTargets.push(otherFish.name);
+        if (!fish.agroList.includes(otherFish.name))
+          fish.agroList.push(otherFish.name);
+
+        // otherFish attacks fish, and may inflict damage.
+        if (otherFish.attack > fish.defence) {
+          fish.life -= 1;
+        }
+
+        // Is fish still alive?
+        if (fish.life <= 0) {
+          console.log(`${fish.name} has died, killed by ${otherFish.name}.`); /* eslint no-console: 0 */
+          return undefined; // Since fish has died, it is removed from state.
+        }
       });
 
       return fish;
-    });
-
-    // todo: Get one round of fighting for all fishes that are in fight mode. Inflict damage on each fish that gets hurt.
-
+    }).filter(fish => fish);  // Remove undefined dead fishes.
 
     // Commit new tick state to the data store.
     dataStore.ticks[id] = deepCopy(state);
