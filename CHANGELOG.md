@@ -2,7 +2,6 @@
 
 ## 1.3.0
 - Fishes swim from tick to tick.
-- Test the swimming of fishes within the aquarium bounding box.
 
 ## 1.2.0
 - When a tick is created, it needs to track which fish is where.
