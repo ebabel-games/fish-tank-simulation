@@ -15,3 +15,6 @@
 
 ## 1.0.0
 - Hello world.
+
+# Features to add
+- Add a static well of healing: fishes that come near hit are blessed with healing and recover some life.
