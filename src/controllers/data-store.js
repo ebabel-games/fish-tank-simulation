@@ -4,9 +4,9 @@ const { host } = require('../utils');
 module.exports = (dataStore) => {
   // Aquarium.
   const GOLDEN_RATIO = 1.61803398875;
-  const AQUARIUM_WIDTH = Math.ceil(GOLDEN_RATIO * 1000) * 2;    // x
-  const AQUARIUM_HEIGHT = AQUARIUM_WIDTH / 2;                   // y
-  const AQUARIUM_DEPTH = AQUARIUM_HEIGHT;                       // z
+  const AQUARIUM_WIDTH = Math.ceil(GOLDEN_RATIO * 100) * 2; // x
+  const AQUARIUM_HEIGHT = AQUARIUM_WIDTH / 2;               // y
+  const AQUARIUM_DEPTH = AQUARIUM_HEIGHT;                   // z
 
   // Default properties and values of dataStore when the simulation starts.
   dataStore.fishes = [];
