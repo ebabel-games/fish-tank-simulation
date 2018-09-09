@@ -5,23 +5,28 @@ const createFish = (dataStore) => {
   const stamina = trait();
   const agility = trait();
   const life = positive(stamina + agility - strength) || 1;
+  const tick = randomTick(dataStore.ticks);
 
   return {
+    name: `fish${tick}`,
     strength,
     stamina,
     agility,
     life,
     attack: positive((strength * 3) - (agility * 1.5)),
     defence: positive((agility * 3) - (strength * 1.5)),
-    tick: randomTick(dataStore.ticks),
+    tick,
     location: randomLocation(dataStore.aquarium.dimensions),
     fightMode: false,
-    fightTarget: null
+    fightTargets: []
   };
 };
 
 // Take fishes in and make them swim to their next random location.
 const swimFishes = (fishes, dataStore) => fishes.map((_fish) => {
+  // When a fish is engaged into a fight, it stops swimming.
+  if (_fish.fightMode) return _fish;
+
   const nextLocation = [
     _fish.location[0] + randomPosOrNeg(4),
     _fish.location[1] + randomPosOrNeg(4),
