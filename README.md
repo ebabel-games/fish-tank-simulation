@@ -17,6 +17,3 @@ npm start
 ```
 
 Browse http://localhost:8080
-
-# Features to develop
-- Fishes attack each other.

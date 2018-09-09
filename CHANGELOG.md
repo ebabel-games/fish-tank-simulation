@@ -1,5 +1,8 @@
 # Fish tank simulation changelog
 
+## 1.4.0
+- Fishes attack each other.
+
 ## 1.3.0
 - Fishes swim from tick to tick.
 
