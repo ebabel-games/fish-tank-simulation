@@ -14,7 +14,13 @@ module.exports = (dataStore) => {
   dataStore.aquarium = {
     tick: 0,
     location: [0, 0, 0],
-    dimensions: [AQUARIUM_WIDTH, AQUARIUM_HEIGHT, AQUARIUM_DEPTH]
+    dimensions: [AQUARIUM_WIDTH, AQUARIUM_HEIGHT, AQUARIUM_DEPTH],
+    minX: -(AQUARIUM_WIDTH / 2),
+    maxX: AQUARIUM_WIDTH / 2,
+    minY: -(AQUARIUM_HEIGHT / 2),
+    maxY: AQUARIUM_HEIGHT / 2,
+    minZ: -(AQUARIUM_DEPTH / 2),
+    maxZ: AQUARIUM_DEPTH / 2
   };
 
   return {

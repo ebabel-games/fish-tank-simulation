@@ -1,4 +1,4 @@
-const { random, highestTick, deepCopy } = require('../utils');
+const { highestTick, deepCopy, randomPosOrNeg } = require('../utils');
 
 const createTick = (dataStore, tick) => {
   const _highestTick = highestTick(dataStore.ticks);
@@ -30,25 +30,29 @@ const createTick = (dataStore, tick) => {
 
     // All existing fishes should swim to a random point near them.
     state.fishes = state.fishes.map((_fish) => {
-      const location = [
-        _fish.location[0] + random(4) - 2,
-        _fish.location[1] + random(4) - 2,
-        _fish.location[2] + random(4) - 2,
+      const nextLocation = [
+        _fish.location[0] + randomPosOrNeg(4),
+        _fish.location[1] + randomPosOrNeg(4),
+        _fish.location[2] + randomPosOrNeg(4),
       ];
 
-      if (location[0] > dataStore.aquarium.dimensions / 2 || location[0] < -(dataStore.aquarium.dimensions / 2)) {
-        location[0] = _fish.location[0];
+      // If the next location x coordinate would fall outside the bounding box of the aquarium,
+      // restrain the next fish location to its current one.
+      if (nextLocation[0] < dataStore.aquarium.minX || nextLocation[0] > dataStore.aquarium.maxX) {
+        nextLocation[0] = _fish.location[0];
       }
 
-      if (location[1] > dataStore.aquarium.dimensions / 2 || location[1] < -(dataStore.aquarium.dimensions / 2)) {
-        location[1] = _fish.location[1];
+      // y.
+      if (nextLocation[1] < dataStore.aquarium.minY || nextLocation[1] > dataStore.aquarium.maxY) {
+        nextLocation[1] = _fish.location[1];
       }
 
-      if (location[2] > dataStore.aquarium.dimensions / 2 || location[2] < -(dataStore.aquarium.dimensions / 2)) {
-        location[2] = _fish.location[2];
+      // z.
+      if (nextLocation[2] < dataStore.aquarium.minZ || nextLocation[2] > dataStore.aquarium.maxZ) {
+        nextLocation[2] = _fish.location[2];
       }
 
-      _fish.location = location;
+      _fish.location = nextLocation;
 
       return _fish;
     });

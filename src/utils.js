@@ -2,6 +2,7 @@ const random = (max) => Math.ceil(Math.random() * (max || 100));
 const dice = () => random(6);
 const trait = () => dice() + dice() + dice();
 const positive = (input) =>  Math.ceil(Math.abs(input));
+const randomPosOrNeg = (max) => (Math.random() < 0.5 ? -1 : 1) * random(max);
 
 const randomLocation = (dimensions) => {
   const width = dimensions[0];
@@ -34,5 +35,6 @@ module.exports = {
   highestTick,
   randomTick,
   host,
-  deepCopy
+  deepCopy,
+  randomPosOrNeg
 };
