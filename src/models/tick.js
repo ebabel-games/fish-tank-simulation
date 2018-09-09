@@ -1,4 +1,4 @@
-const { highestTick, deepCopy } = require('../utils');
+const { highestTick, deepCopy, distance } = require('../utils');
 const { swimFishes } = require('./fish');
 
 const createTick = (dataStore, tick) => {
@@ -30,18 +30,29 @@ const createTick = (dataStore, tick) => {
     }
 
     // All existing fishes should swim to a random point near them.
-    // Note: only fishes that are not in fight mode will move.
-    state.fishes = swimFishes(state.fishes.filter(fish => !fish.fightMode), dataStore);
+    state.fishes = swimFishes(state.fishes, dataStore);
 
     // Is a fish spawned in the current tick?
     const fish = dataStore.fishes.filter(fish => fish.tick === id);
-    // If a fish is found, add it to the list of existing fishes.
     if (fish && fish.length > 0) {
+      // When a fish is found, add it to the list of existing fishes.
       state.fishes.push(deepCopy(fish[0]));
     }
 
-    // todo: Is there any fish nearby so they should switch their fightMode to true?
-    
+    // Is there any fish nearby so they should switch their fightMode to true?
+    state.fishes = state.fishes.map(fish => {
+      state.fishes.filter(otherFish => otherFish.name !== fish.name).map((otherFish) => {
+        const _distance = distance(fish.location, otherFish.location);
+        if (_distance > 64) return otherFish;
+        
+        // The fish and the otherFish are close enough to fight.
+        fish.fightMode = true;
+        if (!fish.fightTargets.includes(otherFish.name))
+          fish.fightTargets.push(otherFish.name);
+      });
+
+      return fish;
+    });
 
     // todo: Get one round of fighting for all fishes that are in fight mode. Inflict damage on each fish that gets hurt.
 
