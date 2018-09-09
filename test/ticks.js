@@ -34,10 +34,10 @@ describe('API ticks entity', () => {
         expect(res).to.have.status(201);
         expect(res.type).to.eql('application/json');
         expect(res.body.description).to.eql(descriptions.ticks.put);
-        //expect(res.body.tick).not.to.eql(undefined);
-        //expect(res.body.tick.strength).not.to.eql(undefined);
-        //expect(res.body.tick.undefinedProperty).to.eql(undefined);
-        //assert(res.body.tick.defence > 0);
+        expect(res.body.ticks).not.to.eql(undefined);
+        expect(res.body.ticks[0].id).not.to.eql(undefined);
+        expect(res.body.ticks.undefinedProperty).to.eql(undefined);
+        assert(res.body.ticks[0].id >= 0);
         done();
       });
   });
