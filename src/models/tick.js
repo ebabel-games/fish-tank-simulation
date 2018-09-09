@@ -1,4 +1,4 @@
-const { highestTick, deepCopy, distance } = require('../utils');
+const { highestTick, deepCopy, distance, dice } = require('../utils');
 const { swimFishes } = require('./fish');
 
 const createTick = (dataStore, tick) => {
@@ -41,29 +41,42 @@ const createTick = (dataStore, tick) => {
 
     // Is there any fish nearby so they should switch their fightMode to true?
     state.fishes = state.fishes.map(fish => {
+      // Since fish has died, it will be removed from state.
+      if (fish.life <= 0) return undefined;
+
+      // fish is still alive, so he will check if it is close enough to all other fishes,
+      // and if so, try to not be eaten by otherFish.
       state.fishes.filter(otherFish => otherFish.name !== fish.name).map((otherFish) => {
         const _distance = distance(fish.location, otherFish.location);
-        if (_distance > 64) return otherFish;
+        if (_distance > 64 || otherFish.life <= 0 || fish.life <= 0) return otherFish;
         
         // The fish and the otherFish are close enough to fight.
         fish.fightMode = true;
-        if (!fish.agroList.includes(otherFish.name))
+
+        // Add otherFish to fish agro list.
+        if (!fish.agroList.includes(otherFish.name) && otherFish.life > 0)
           fish.agroList.push(otherFish.name);
 
+        // If otherFish is dead, remove him from fish agroList.
+        if (fish.agroList.includes(otherFish.name) && otherFish.life <= 0)
+          fish.agroList.splice(fish.agroList.indexOf(otherFish.name), 1);
+
         // otherFish attacks fish, and may inflict damage.
-        if (otherFish.attack > fish.defence) {
-          fish.life -= 1;
+        const attackBonus = (otherFish.attack > fish.defence) ? otherFish.attack - fish.defence : 1;
+        if (dice() <= attackBonus) {
+          const damage = dice();
+          fish.life -= damage;
+          console.log(`${otherFish.name} hits ${fish.name} for ${damage} damage.`); /* eslint no-console: 0 */
         }
 
         // Is fish still alive?
         if (fish.life <= 0) {
           console.log(`${fish.name} has died, killed by ${otherFish.name}.`); /* eslint no-console: 0 */
-          return undefined; // Since fish has died, it is removed from state.
         }
       });
 
       return fish;
-    }).filter(fish => fish);  // Remove undefined dead fishes.
+    }).filter(fish => fish && fish.life > 0);  // Remove dead fishes.
 
     // Commit new tick state to the data store.
     dataStore.ticks[id] = deepCopy(state);
