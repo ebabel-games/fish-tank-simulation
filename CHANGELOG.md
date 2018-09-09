@@ -1,7 +1,7 @@
 # Fish tank simulation changelog
 
 ## 1.3.0
-- Fish swim from tick to tick.
+- Fishes swim from tick to tick.
 - Test the swimming of fishes within the aquarium bounding box.
 
 ## 1.2.0
