@@ -37,5 +37,5 @@ Browse https://fish-tank-simulation-[UNIQUE_KEY].now.sh where [UNIQUE_KEY] is ge
 
 Note: If you never installed `now` before, the first time you do an e-mail challenge will run to setup a token on your machine. If that happens, run `now --public` again to deploy.
 
-# Notes/gist for testing fish-tank-simulation 
+## Appendix - notes/gist for testing fish-tank-simulation 
 https://gist.github.com/dgapitts/5127e58eab755ce8bd1b17327beb101e
