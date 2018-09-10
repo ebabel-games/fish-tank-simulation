@@ -17,4 +17,4 @@
 - Hello world.
 
 # Features to add
-- Add a static well of healing: fishes that come near hit are blessed with healing and recover some life.
+- A few rare fishes are blessed by God and refuse to attack other fishes. Instead they keep on swimming when other fishes attack them.
