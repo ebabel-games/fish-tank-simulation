@@ -17,4 +17,5 @@
 - Hello world.
 
 # Features to add
+- Replace all console.log messages with a new endpoint that can list all log messages.
 - A few rare fishes are blessed by God and refuse to attack other fishes. Instead they keep on swimming when other fishes attack them.
