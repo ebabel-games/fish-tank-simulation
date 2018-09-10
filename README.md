@@ -2,6 +2,8 @@
 Node.js server-side simulation of an aquarium
 
 ## Install
+You need Node.js and npm from https://nodejs.org/
+
 ```
 npm install
 ```
@@ -10,6 +12,8 @@ npm install
 ```
 npm test
 ```
+
+Note: if a timeout occurs the first time the tests are run, try running again one more time. The timeout shouldn't occur a second time. If it does, maybe something is wrong indeed.
 
 ## Run locally in Development
 ```
