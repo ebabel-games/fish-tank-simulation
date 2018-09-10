@@ -4,6 +4,11 @@ const api = express();
 
 api.settings['x-powered-by'] = false;
 api.use(bodyParser.json());
+api.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 const dataStore = {};
 const { getDataStore } = require('./controllers/data-store')(dataStore);  // First controller, it initializes dataStore.
