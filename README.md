@@ -29,6 +29,8 @@ You can deploy as many versions, each deployment is unique and kept published fo
 now --public
 ```
 
+Browse https://fish-tank-simulation-[UNIQUE_KEY].now.sh where [UNIQUE_KEY] is generated during the deployment in your terminal.
+
 Note: If you never installed `now` before, the first time you do an e-mail challenge will run to setup a token on your machine. If that happens, run `now --public` again to deploy.
 
 # Notes/gist for testing fish-tank-simulation 

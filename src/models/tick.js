@@ -60,9 +60,9 @@ const createTick = (dataStore, tick) => {
         if (dice() <= attackBonus) {
           const damage = dice();
           otherFish.life -= damage;
-          console.log(`${fish.name} bites ${otherFish.name} for ${damage} damage${damage > 1 ? 's' : ''}.`); /* eslint no-console: 0 */
+          dataStore.logs.push(`${fish.name} bites ${otherFish.name} for ${damage} damage${damage > 1 ? 's' : ''}.`);
         } else {
-          console.log(`${fish.name} tries to bite ${otherFish.name} but misses.`); /* eslint no-console: 0 */
+          dataStore.logs.push(`${fish.name} tries to bite ${otherFish.name} but misses.`);
         }
 
         if (otherFish.life <= 0) {
@@ -70,8 +70,8 @@ const createTick = (dataStore, tick) => {
           const bonusLife = dice() + dice() + dice();
           fish.life += bonusLife;
           fish.killList.push(otherFish.name);
-          console.log(`${otherFish.name} has died, eaten by ${fish.name}.`); /* eslint no-console: 0 */
-          console.log(`${fish.name} wins a bonus ${bonusLife} life!`); /* eslint no-console: 0 */
+          dataStore.logs.push(`${otherFish.name} has died, eaten by ${fish.name}.`);
+          dataStore.logs.push(`${fish.name} wins a bonus ${bonusLife} life!`);
         }
       }
     }
