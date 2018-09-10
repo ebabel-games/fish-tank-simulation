@@ -41,4 +41,38 @@ describe('API ticks entity', () => {
         done();
       });
   });
+
+  it('fish should move over tick events, and get expected change in location', (done) => {
+    var original_location;
+    var new_location;
+    let movement = false;
+
+    //todo harden test case - current only one fish in the test script not sure if this work with multiple fishes
+    chai.request(Index)
+      .get('/fishes')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err) console.error(err);   /* eslint no-console: 0 */
+        expect(res).to.have.status(200);
+        expect(res.type).to.eql('application/json');
+        //console.log(res.body.fishes);
+        original_location = res.body.fishes[0].location;
+        //console.log(`1: ${original_location}`);   
+
+        chai.request(Index) 
+        .put('/ticks')
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          //console.log('got here');
+          if (err) console.error(err);   /* eslint no-console: 0 */
+          expect(res).to.have.status(201);
+          expect(res.type).to.eql('application/json'); 
+
+          //console.log(`2. ${res.body.ticks[0].fishes[0].location}`);   
+          new_location = res.body.ticks[0].fishes[0].location; 
+          assert(original_location !== new_location);
+          done();
+        });
+      });
+  }); 
 });
