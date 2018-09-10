@@ -1,5 +1,5 @@
-const { highestTick, deepCopy, distance, dice } = require('../utils');
-const { swim } = require('./fish');
+const { highestTick, deepCopy } = require('../utils');
+const { swim, fight } = require('./fish');
 
 const createTick = (dataStore, tick) => {
   const _highestTick = highestTick(dataStore.ticks);
@@ -39,42 +39,8 @@ const createTick = (dataStore, tick) => {
       state.fishes.push(deepCopy(fish[0]));
     }
 
-    for (let i = 0, l = state.fishes.length; i < l; i++) {
-      const fish = state.fishes[i];
-      if (fish.life <= 0) continue;
-
-      for (let i2 = 0; i2 < l; i2++) {
-        let otherFish = state.fishes[i2];
-        if (otherFish.life <= 0) continue;
-        if (fish.name === otherFish.name) continue; // a fish will not attack himself.
-
-        const _distance = distance(fish.location, otherFish.location);
-        if (_distance > 32) continue; // fishes that are too far appart to attack each other.
-
-        // Set both fish and otherFish fightMode to true, so they stop swimming.
-        fish.fightMode = true;
-        otherFish.fightMode = true;
-
-        let attackBonus = fish.attack - otherFish.defence;
-        if (attackBonus < 2) attackBonus = 2;
-        if (dice() <= attackBonus) {
-          const damage = dice();
-          otherFish.life -= damage;
-          dataStore.logs.push(`${fish.name} bites ${otherFish.name} for ${damage} damage${damage > 1 ? 's' : ''}.`);
-        } else {
-          dataStore.logs.push(`${fish.name} tries to bite ${otherFish.name} but misses.`);
-        }
-
-        if (otherFish.life <= 0) {
-          fish.fightMode = false;
-          const bonusLife = dice() + dice() + dice();
-          fish.life += bonusLife;
-          fish.killList.push(otherFish.name);
-          dataStore.logs.push(`${otherFish.name} has died, eaten by ${fish.name}.`);
-          dataStore.logs.push(`${fish.name} wins a bonus ${bonusLife} life!`);
-        }
-      }
-    }
+    // Fight.
+    fight(state.fishes, dataStore);
 
     // Remove dead fishes.
     state.fishes = state.fishes.filter(fish => fish.life > 0);

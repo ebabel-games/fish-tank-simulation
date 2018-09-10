@@ -1,4 +1,4 @@
-const { trait, positive, randomLocation, randomTick, randomPosOrNeg } = require('../utils.js');
+const { trait, positive, randomLocation, randomTick, randomPosOrNeg, distance, dice } = require('../utils.js');
 
 const createFish = (dataStore) => {
   const strength = trait();
@@ -54,7 +54,47 @@ const swim = (fishes, dataStore) => fishes.map((_fish) => {
   return _fish;
 });
 
+const fight = (fishes, dataStore) => {
+  for (let i = 0, l = fishes.length; i < l; i++) {
+    const fish = fishes[i];
+    if (fish.life <= 0) continue;
+
+    for (let i2 = 0; i2 < l; i2++) {
+      let otherFish = fishes[i2];
+      if (otherFish.life <= 0) continue;
+      if (fish.name === otherFish.name) continue; // a fish will not attack himself.
+
+      const _distance = distance(fish.location, otherFish.location);
+      if (_distance > 32) continue; // fishes that are too far appart to attack each other.
+
+      // Set both fish and otherFish fightMode to true, so they stop swimming.
+      fish.fightMode = true;
+      otherFish.fightMode = true;
+
+      let attackBonus = fish.attack - otherFish.defence;
+      if (attackBonus < 2) attackBonus = 2;
+      if (dice() <= attackBonus) {
+        const damage = dice();
+        otherFish.life -= damage;
+        dataStore.logs.push(`${fish.name} bites ${otherFish.name} for ${damage} damage${damage > 1 ? 's' : ''}.`);
+      } else {
+        dataStore.logs.push(`${fish.name} tries to bite ${otherFish.name} but misses.`);
+      }
+
+      if (otherFish.life <= 0) {
+        fish.fightMode = false;
+        const bonusLife = dice() + dice() + dice();
+        fish.life += bonusLife;
+        fish.killList.push(otherFish.name);
+        dataStore.logs.push(`${otherFish.name} has died, eaten by ${fish.name}.`);
+        dataStore.logs.push(`${fish.name} wins a bonus ${bonusLife} life!`);
+      }
+    }
+  }
+};
+
 module.exports = {
   createFish,
-  swim
+  swim,
+  fight
 };
