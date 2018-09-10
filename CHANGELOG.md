@@ -1,5 +1,8 @@
 # Fish tank simulation changelog
 
+## 1.6.2
+- Add support for all HTTP verbs with CORS.
+
 ## 1.6.1
 - Add support for CORS, so the web API can be used from other hosts, including localhost, when it's deployed to Production.
 
