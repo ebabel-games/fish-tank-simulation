@@ -6,7 +6,7 @@ const createBlessedFish = (dataStore) => {
     strength: 1,
     stamina: 1,
     agility: 1,
-    life: 100,
+    life: 12,
     attack: 1,
     defence: 1,
     tick: randomTick(dataStore.ticks),
@@ -23,9 +23,11 @@ const createFish = (dataStore) => {
   const life = positive(stamina + agility - strength) || 1;
   const tick = randomTick(dataStore.ticks);
 
-  // Spawn the Blessed Fish? There can be only one Blessed Fish.
-  if (random(999) === 333 && dataStore.fishes.filter(fish => fish.name === 'Blessed Fish').length === 0)
+  // Spawn the rare Blessed Fish?
+  // There can be only one Blessed Fish, so check the last tick doesn't already have the Blessed Fish.
+  if (random(999) === 333 && dataStore.ticks[dataStore.ticks.length - 1].fishes.filter(fish => fish.name === 'Blessed Fish').length === 0) {
     return createBlessedFish(dataStore);
+  }
 
   return {
     name: `fish${tick}`,
@@ -74,13 +76,14 @@ const swim = (fishes, dataStore) => fishes.map((_fish) => {
   return _fish;
 });
 
+// fish attacks otherFish. In loop, all combinations are considered.
 const fight = (fishes, dataStore) => {
   for (let i = 0, l = fishes.length; i < l; i++) {
-    const fish = fishes[i];
-    if (fish.life <= 0) continue;
+    const fish = fishes[i]; // Attacking fish.
+    if (fish.life <= 0 || fish.name === 'Blessed Fish') continue;
 
     for (let i2 = 0; i2 < l; i2++) {
-      let otherFish = fishes[i2];
+      let otherFish = fishes[i2]; // Defending fish.
       if (otherFish.life <= 0) continue;
       if (fish.name === otherFish.name) continue; // a fish will not attack himself.
 
@@ -99,6 +102,13 @@ const fight = (fishes, dataStore) => {
         dataStore.logs.push(`${fish.name} bites ${otherFish.name} for ${damage} damage${damage > 1 ? 's' : ''}.`);
       } else {
         dataStore.logs.push(`${fish.name} tries to bite ${otherFish.name} but misses.`);
+      }
+
+      // When the Blessed Fish gets attacked, if he still alive, he will heal the attacking fish.
+      if (otherFish.name === 'Blessed Fish' && otherFish.life > 0) {
+        const healing = random(3);
+        fish.life += healing;
+        dataStore.logs.push(`${fish.name} is healed for ${healing} life by ${otherFish.name}!`);
       }
 
       if (otherFish.life <= 0) {
