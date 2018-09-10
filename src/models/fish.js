@@ -7,8 +7,8 @@ const createBlessedFish = (dataStore) => {
     stamina: 1,
     agility: 1,
     life: 100,
-    attack: 0,
-    defence: 0,
+    attack: 1,
+    defence: 1,
     tick: randomTick(dataStore.ticks),
     location: [0, 0, 0],
     fightMode: false,
@@ -24,7 +24,7 @@ const createFish = (dataStore) => {
   const tick = randomTick(dataStore.ticks);
 
   // Spawn the Blessed Fish? There can be only one Blessed Fish.
-  if (random(6) === 3 && dataStore.fishes.filter(fish => fish.name === 'Blessed Fish').length === 0)
+  if (random(999) === 333 && dataStore.fishes.filter(fish => fish.name === 'Blessed Fish').length === 0)
     return createBlessedFish(dataStore);
 
   return {
