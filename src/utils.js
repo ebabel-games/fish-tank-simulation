@@ -3,6 +3,11 @@ const dice = () => random(6);
 const trait = () => dice() + dice() + dice();
 const positive = (input) =>  Math.ceil(Math.abs(input));
 const randomPosOrNeg = (max) => (Math.random() < 0.5 ? -1 : 1) * random(max);
+const distance = (a, b) => Math.sqrt(
+  Math.pow((b[0] - a[0]), 2)
+  + Math.pow((b[1] - a[1]), 2)
+  + Math.pow((b[2] - a[2]), 2)
+);
 
 const randomLocation = (dimensions) => {
   const width = dimensions[0];
@@ -36,5 +41,6 @@ module.exports = {
   randomTick,
   host,
   deepCopy,
-  randomPosOrNeg
+  randomPosOrNeg,
+  distance
 };
