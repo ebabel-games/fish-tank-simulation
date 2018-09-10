@@ -39,7 +39,7 @@ const createTick = (dataStore, tick) => {
       state.fishes.push(deepCopy(fish[0]));
     }
 
-    // Fight.
+    // Fight. state.fishes is updated in fight function.
     fight(state.fishes, dataStore);
 
     // Remove dead fishes.
