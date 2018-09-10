@@ -12,6 +12,12 @@
 
   <canvas id="canvas"></canvas>
 
+  <form id="controls">
+    <button id="spawnFish">Spawn a fish</button>
+    <button id="addTick">Add a tick</button>
+    <button id="getLogs">Get logs</button>
+  </form>
+
   <script>
     const canvas = document.getElementById('canvas');
     const url = 'https://fish-tank-simulation-ttzvmrtftl.now.sh';
@@ -19,13 +25,12 @@
     const method = "GET";
 
     xhr.open(method, url, true);
-    xhr.onreadystatechange = function () {
+    xhr.onreadystatechange = () => {
       if(xhr.readyState === 4 && xhr.status === 200) {
         console.log(xhr.responseText);
       }
     };
     xhr.send();
-
   </script>
 </body>
 </html>
