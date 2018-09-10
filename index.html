@@ -5,32 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Fish Tank Simulation</title>
+  <meta name="description" content="Simulate a fish tank with violent, hungry fishes! The Blessed Fish may come and heal fishes that attack him, otherwise it's each fish for himself.">
+
+  <link rel="stylesheet" href="game.css">
+
+  <script src="three.min.js"></script>
+  <script src="OrbitControls.js"></script>
 </head>
 <body>
-  <h1>Fish Tank Simulation</h1>
-  <p>Simulate a fish tank with violent, hungry fishes! The Blessed Fish may come and heal fishes that attack him, otherwise it's each fish for himself.</p>
-
-  <canvas id="canvas"></canvas>
-
   <form id="controls">
-    <button id="spawnFish">Spawn a fish</button>
-    <button id="addTick">Add a tick</button>
-    <button id="getLogs">Get logs</button>
+    <button id="putFishes">Fish</button>
+    <button id="putTicks">Tick</button>
+    <button id="getLogs">Logs</button>
   </form>
 
-  <script>
-    const canvas = document.getElementById('canvas');
-    const url = 'https://fish-tank-simulation-ttzvmrtftl.now.sh';
-    const xhr = new XMLHttpRequest();
-    const method = "GET";
-
-    xhr.open(method, url, true);
-    xhr.onreadystatechange = () => {
-      if(xhr.readyState === 4 && xhr.status === 200) {
-        console.log(xhr.responseText);
-      }
-    };
-    xhr.send();
-  </script>
+  <script src="game.js"></script>
 </body>
 </html>

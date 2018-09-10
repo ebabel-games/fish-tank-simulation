@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  background-color: #0e0727;
+  overflow: hidden;
+}
+
+#controls {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+#controls button {
+  margin-right: 10px;
+}
