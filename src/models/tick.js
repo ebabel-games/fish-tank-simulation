@@ -1,5 +1,5 @@
 const { highestTick, deepCopy, distance, dice } = require('../utils');
-const { swimFishes } = require('./fish');
+const { swim } = require('./fish');
 
 const createTick = (dataStore, tick) => {
   const _highestTick = highestTick(dataStore.ticks);
@@ -30,7 +30,7 @@ const createTick = (dataStore, tick) => {
     }
 
     // All existing fishes should swim to a random point near them.
-    state.fishes = swimFishes(state.fishes, dataStore);
+    state.fishes = swim(state.fishes, dataStore);
 
     // Is a fish spawned in the current tick?
     const fish = dataStore.fishes.filter(fish => fish.tick === id);

@@ -23,7 +23,7 @@ const createFish = (dataStore) => {
 };
 
 // Take fishes in and make them swim to their next random location.
-const swimFishes = (fishes, dataStore) => fishes.map((_fish) => {
+const swim = (fishes, dataStore) => fishes.map((_fish) => {
   // When a fish is engaged into a fight, it stops swimming.
   if (_fish.fightMode) return _fish;
 
@@ -56,5 +56,5 @@ const swimFishes = (fishes, dataStore) => fishes.map((_fish) => {
 
 module.exports = {
   createFish,
-  swimFishes
+  swim
 };
