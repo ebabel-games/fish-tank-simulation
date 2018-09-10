@@ -9,6 +9,7 @@ const dataStore = {};
 const { getDataStore } = require('./controllers/data-store')(dataStore);  // First controller, it initializes dataStore.
 const { getFishes, putFish } = require('./controllers/fishes')(dataStore);
 const { getTicks, putTick } = require('./controllers/ticks')(dataStore);
+const { getLogs } = require('./controllers/logs')(dataStore);
 
 // Routes.
 api.get('/', getDataStore);
@@ -16,6 +17,7 @@ api.get('/fishes', getFishes);
 api.put('/fishes', putFish);
 api.get('/ticks', getTicks);
 api.put('/ticks', putTick);
+api.get('/logs', getLogs);
 
 let port = 8080;  // default while developing.
 if (process.env.NODE_ENV === 'test') port = 3000;

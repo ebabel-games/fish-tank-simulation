@@ -26,8 +26,10 @@ npm install -g now
 
 You can deploy as many versions, each deployment is unique and kept published forever, for free.
 ```
-now
+now --public
 ```
+
+Note: If you never installed `now` before, the first time you do an e-mail challenge will run to setup a token on your machine. If that happens, run `now --public` again to deploy.
 
 # Notes/gist for testing fish-tank-simulation 
 https://gist.github.com/dgapitts/5127e58eab755ce8bd1b17327beb101e

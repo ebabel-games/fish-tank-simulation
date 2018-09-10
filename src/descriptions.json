@@ -9,5 +9,8 @@
   "ticks": {
     "get": "List all the ticks ever created.",
     "put": "Create a new tick by incrementing from highest tick to the next one."
+  },
+  "logs": {
+    "get": "List all log messages."
   }
 }

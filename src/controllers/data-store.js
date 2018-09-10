@@ -22,6 +22,7 @@ module.exports = (dataStore) => {
     minZ: -(AQUARIUM_DEPTH / 2),
     maxZ: AQUARIUM_DEPTH / 2
   };
+  dataStore.logs = [];
 
   return {
     getDataStore: (req, res) => {
