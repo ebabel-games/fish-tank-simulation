@@ -39,8 +39,8 @@ const createTick = (dataStore, tick) => {
       state.fishes.push(deepCopy(fish[0]));
     }
 
-    // Fight. state.fishes is updated in fight function.
-    fight(state.fishes, dataStore);
+    // All fishes that are near each other will fight (except the Blessed Fish, if present).
+    state.fishes = fight(state.fishes, dataStore);
 
     // Remove dead fishes.
     state.fishes = state.fishes.filter(fish => fish.life > 0);

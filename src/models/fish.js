@@ -1,4 +1,20 @@
-const { trait, positive, randomLocation, randomTick, randomPosOrNeg, distance, dice } = require('../utils.js');
+const { trait, positive, random, randomLocation, randomTick, randomPosOrNeg, distance, dice } = require('../utils.js');
+
+const createBlessedFish = (dataStore) => {
+  return {
+    name: 'Blessed Fish',
+    strength: 1,
+    stamina: 1,
+    agility: 1,
+    life: 100,
+    attack: 0,
+    defence: 0,
+    tick: randomTick(dataStore.ticks),
+    location: [0, 0, 0],
+    fightMode: false,
+    killList: []
+  };
+};
 
 const createFish = (dataStore) => {
   const strength = trait();
@@ -6,6 +22,10 @@ const createFish = (dataStore) => {
   const agility = trait();
   const life = positive(stamina + agility - strength) || 1;
   const tick = randomTick(dataStore.ticks);
+
+  // Spawn the Blessed Fish? There can be only one Blessed Fish.
+  if (random(6) === 3 && dataStore.fishes.filter(fish => fish.name === 'Blessed Fish').length === 0)
+    return createBlessedFish(dataStore);
 
   return {
     name: `fish${tick}`,
@@ -91,6 +111,8 @@ const fight = (fishes, dataStore) => {
       }
     }
   }
+
+  return fishes;
 };
 
 module.exports = {
