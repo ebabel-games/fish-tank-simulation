@@ -1,5 +1,9 @@
 # Fish tank simulation changelog
 
+## 1.6.5
+- Add currentFishesPopulation to dataStore endpoint ('/).
+- Add all latest log messages generated for PUT to /ticks and to /fishes
+
 ## 1.6.4
 - Create simple test on descriptions.logs.get 
 - Fix minor bug (description of logs endpoint) in src/controllers/logs.js

@@ -13,19 +13,22 @@ module.exports = (dataStore) => {
     getDataStore: (req, res) => {
       const _host = host(req.connection, req.headers);
 
-      const totalFishes = dataStore.fishes.length;
-      const totalTicks = dataStore.ticks.length;
       const totalLogs = dataStore.logs.length;
+      const totalTicks = dataStore.ticks.length;
+      const totalFishesCreated = dataStore.fishes.length;
+      const currentFishesPopulation =  (totalFishesCreated) ?
+        dataStore.ticks[totalTicks - 1].fishes.length : 0;
 
       res.status(200);
       res.json({
         description: descriptions.dataStore.get,
-        totalFishes,
-        totalTicks,
         totalLogs,
-        lastFish: (totalFishes) ? dataStore.fishes[totalFishes - 1] : null,
-        lastTick: (totalTicks) ? dataStore.ticks[totalTicks - 1] : null,
+        totalTicks,
+        totalFishesCreated,
+        currentFishesPopulation,
         lastLog: (totalLogs) ? dataStore.logs[totalLogs - 1] : null,
+        lastTick: (totalTicks) ? dataStore.ticks[totalTicks - 1] : null,
+        lastFish: (totalFishesCreated) ? dataStore.fishes[totalFishesCreated - 1] : null,
         links: [
           {
             method: 'GET',
