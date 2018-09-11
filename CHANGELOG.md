@@ -5,8 +5,9 @@
 - Refactor the fishTank into fishTank, to be consistent with the name of the project.
 - Log the fishTank create event.
 - Prepend each log message with a tick in square brackets to indicate when the event of that log message happened.
-- Log when a fish spawns.
 - Change the data-store endpoint ("/") to return a summary of the current state of the fish tank instead of all the data, because that's too much data and less useful than a snapshot.
+- Refactor checking if the Blessed Fish is present into a function.
+- Log when a fish spawns.
 
 ## 1.6.2
 - Add support for all HTTP verbs with CORS.

@@ -4,6 +4,7 @@ const { swim, fight } = require('./fish');
 const createTick = (dataStore, tick) => {
   const _highestTick = highestTick(dataStore.ticks);
 
+  // Number of ticks to create. Default is 1.
   let ticksToCreate = 1;
 
   if (tick !== undefined && tick > _highestTick) {
@@ -35,12 +36,13 @@ const createTick = (dataStore, tick) => {
     // Is a fish spawned in the current tick?
     const fish = dataStore.fishes.filter(fish => fish.tick === id);
     if (fish && fish.length > 0) {
-      // When a fish is found, add it to the list of existing fishes.
       state.fishes.push(deepCopy(fish[0]));
+      // Log the fact that fish has spawned.
+      dataStore.logs.push(`[${id}] ${fish[0].name} spawns with ${fish[0].life} life at ${JSON.stringify(fish[0].location)}.`);
     }
 
     // All fishes that are near each other will fight (except the Blessed Fish, if present).
-    state.fishes = fight(state.fishes, dataStore);
+    state.fishes = fight(state.fishes, dataStore, id);
 
     // Remove dead fishes.
     state.fishes = state.fishes.filter(fish => fish.life > 0);
