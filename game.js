@@ -1,4 +1,4 @@
-const domain = 'https://fish-tank-simulation-uczfxcqaxz.now.sh';
+const domain = 'https://fish-tank-simulation-ivxfzwdyav.now.sh';
 
 let latestLog;
 
@@ -21,12 +21,8 @@ const callApi = (method = 'GET', endpoint) => {
   const xhr = new XMLHttpRequest();
   xhr.open(method, url, true);
   xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4 && xhr.status === 200 && endpoint === '/') {
-      const lastLog = JSON.parse(xhr.response).lastLog;
-      if (lastLog !== latestLog) {
-        latestLog = lastLog;
-        updateLogs([latestLog]);
-      }
+    if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 201)) {
+      updateLogs(JSON.parse(xhr.response).logs);
     }
   };
   xhr.send();
@@ -48,10 +44,12 @@ const material = new THREE.MeshBasicMaterial({ color: "#433F81" });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
+// First setup: start by creating a fish.
+callApi('PUT', '/fishes');
+
 // Render Loop.
 let oneTick = 0;
-let twoTicks = 0;
-let sixTicks = 0;
+let tenTicks = 0;
 const render = () => {
   const delta = clock.getDelta(); // Calculate Delta.
 
@@ -62,25 +60,18 @@ const render = () => {
 
   // Tick counters.
   oneTick += delta;
-  twoTicks += delta;
-  sixTicks += delta;
+  tenTicks += delta;
 
   // Events happening every one tick.
-  if (oneTick > 0.5) {
-    callApi('GET', '/');
+  if (oneTick > 1) {
+    callApi('PUT', '/ticks');
     oneTick = 0; // Reset tick counter.
   }
 
-  // Events every two ticks.
-  if (twoTicks > 2) {
-    callApi('PUT', '/ticks');
-    twoTicks = 0;
-  }
-
-  // Events every six ticks.
-  if (sixTicks > 6) {
+  // Events every ten ticks.
+  if (tenTicks > 10) {
     callApi('PUT', '/fishes');
-    sixTicks = 0;
+    tenTicks = 0;
   }
 
   // Render the scene.
