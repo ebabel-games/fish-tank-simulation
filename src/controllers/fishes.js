@@ -31,12 +31,17 @@ module.exports = (dataStore) => {
       // Since a fish has been scheduled to spawn at a specific tick,
       // the simulation needs to make sure all intervening ticks are also created
       // until the tick when that fish spawns.
-      createTick(dataStore, fish.tick);
+      const {
+        ticks,
+        logs
+      } = createTick(dataStore, fish.tick);
 
       res.status(201);
       res.json({
         description: descriptions.fishes.put,
         fish,
+        ticks,
+        logs,
         links: [
           {
             method: 'GET',
