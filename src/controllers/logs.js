@@ -5,7 +5,7 @@ module.exports = (dataStore) => {
     getLogs: (req, res) => {
       res.status(200);
       res.json({
-        description: descriptions.dataStore.get,
+        description: descriptions.logs.get,
         logs: dataStore.logs
       });
     }

@@ -1,5 +1,9 @@
 # Fish tank simulation changelog
 
+## 1.6.4
+- Create simple test on descriptions.logs.get 
+- Fix minor bug (description of logs endpoint) in src/controllers/logs.js
+
 ## 1.6.3
 - Refactor code out of dataStore for the fishTank initial create.
 - Refactor the fishTank into fishTank, to be consistent with the name of the project.

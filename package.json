@@ -1,6 +1,6 @@
 {
   "name": "fish-tank-simulation",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "Fish tank simulation.",
   "main": "src/index.js",
   "scripts": {
