@@ -1,5 +1,5 @@
 const canvas = document.getElementById('canvas');
-const domain = 'https://fish-tank-simulation-aquzmkfgsm.now.sh';
+const domain = 'https://fish-tank-simulation-uczfxcqaxz.now.sh';
 const xhr = new XMLHttpRequest();
 const method = "GET";
 
