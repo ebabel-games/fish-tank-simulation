@@ -1,28 +1,13 @@
 const descriptions = require('../descriptions.json');
 const { host } = require('../utils');
+const { createAquarium } = require('../models/aquarium');
 
 module.exports = (dataStore) => {
-  // Aquarium.
-  const GOLDEN_RATIO = 1.61803398875;
-  const AQUARIUM_WIDTH = Math.ceil(GOLDEN_RATIO * 100) * 2; // x
-  const AQUARIUM_HEIGHT = AQUARIUM_WIDTH / 2;               // y
-  const AQUARIUM_DEPTH = AQUARIUM_HEIGHT;                   // z
-
   // Default properties and values of dataStore when the simulation starts.
+  dataStore.logs = [];
   dataStore.fishes = [];
   dataStore.ticks = [{ id: 0, fishes: [] }];
-  dataStore.aquarium = {
-    tick: 0,
-    location: [0, 0, 0],
-    dimensions: [AQUARIUM_WIDTH, AQUARIUM_HEIGHT, AQUARIUM_DEPTH],
-    minX: -(AQUARIUM_WIDTH / 2),
-    maxX: AQUARIUM_WIDTH / 2,
-    minY: -(AQUARIUM_HEIGHT / 2),
-    maxY: AQUARIUM_HEIGHT / 2,
-    minZ: -(AQUARIUM_DEPTH / 2),
-    maxZ: AQUARIUM_DEPTH / 2
-  };
-  dataStore.logs = [];
+  dataStore.aquarium = createAquarium(dataStore);
 
   return {
     getDataStore: (req, res) => {
