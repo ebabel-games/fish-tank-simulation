@@ -1,9 +1,7 @@
-const canvas = document.getElementById('canvas');
 const domain = 'https://fish-tank-simulation-uczfxcqaxz.now.sh';
-const xhr = new XMLHttpRequest();
-const method = "GET";
 
-const callApi = (method, url) => {
+const callApi = (method = 'GET', url = domain) => {
+  const xhr = new XMLHttpRequest();
   xhr.open(method, url, true);
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 201)) {
@@ -11,7 +9,7 @@ const callApi = (method, url) => {
     }
   };
   xhr.send();  
-}
+};
 
 document.getElementById('controls').addEventListener('submit', (e) => {
   e.preventDefault();
@@ -27,6 +25,10 @@ document.getElementById('putTicks').addEventListener('click', (e) => {
 
 document.getElementById('getLogs').addEventListener('click', (e) => {
   callApi('GET', `${domain}/logs`);
+});
+
+document.getElementById('getDataStore').addEventListener('click', (e) => {
+  callApi();
 });
 
 // Create an empty scene
