@@ -31,6 +31,8 @@ document.getElementById('getDataStore').addEventListener('click', (e) => {
   callApi();
 });
 
+const clock = new THREE.Clock();
+
 // Create an empty scene
 const scene = new THREE.Scene();
 
@@ -60,13 +62,20 @@ scene.add(cube);
 
 // Render Loop
 const render = () => {
-  requestAnimationFrame(render);
+  // Calculate Delta.
+  const delta = clock.getDelta();
 
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+  const speedInUnitsPerSecond = 2;
+
+  cube.rotation.x += delta * speedInUnitsPerSecond;
+  cube.rotation.y += delta * speedInUnitsPerSecond;
+
+  console.log(delta, delta * speedInUnitsPerSecond);
 
   // Render the scene
   renderer.render(scene, camera);
+
+  requestAnimationFrame(render);
 };
 
 render();
