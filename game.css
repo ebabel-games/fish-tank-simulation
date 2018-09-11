@@ -6,12 +6,23 @@ body {
   overflow: hidden;
 }
 
-#controls {
+.window {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  background-color: rgba(0, 0, 100, .75);
+  color: #efea15;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: .5em .75em;
+  font-size: 12px;
 }
 
-#controls button {
-  margin-right: 10px;
+.window p {
+  margin: 0 0 .25em;
+}
+
+#logsWindow {
+  bottom: 10px;
+  left: 10px;
+  width: 324px;
+  height: 200px;
 }
