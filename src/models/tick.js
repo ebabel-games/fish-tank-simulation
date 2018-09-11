@@ -1,9 +1,10 @@
-const { highestTick, deepCopy, distance, dice } = require('../utils');
-const { swimFishes } = require('./fish');
+const { highestTick, deepCopy } = require('../utils');
+const { swim, fight } = require('./fish');
 
 const createTick = (dataStore, tick) => {
   const _highestTick = highestTick(dataStore.ticks);
 
+  // Number of ticks to create. Default is 1.
   let ticksToCreate = 1;
 
   if (tick !== undefined && tick > _highestTick) {
@@ -30,51 +31,18 @@ const createTick = (dataStore, tick) => {
     }
 
     // All existing fishes should swim to a random point near them.
-    state.fishes = swimFishes(state.fishes, dataStore);
+    state.fishes = swim(state.fishes, dataStore);
 
     // Is a fish spawned in the current tick?
     const fish = dataStore.fishes.filter(fish => fish.tick === id);
     if (fish && fish.length > 0) {
-      // When a fish is found, add it to the list of existing fishes.
       state.fishes.push(deepCopy(fish[0]));
+      // Log the fact that fish has spawned.
+      dataStore.logs.push(`[${id}] ${fish[0].name} spawns with ${fish[0].life} life at ${JSON.stringify(fish[0].location)}.`);
     }
 
-    for (let i = 0, l = state.fishes.length; i < l; i++) {
-      const fish = state.fishes[i];
-      if (fish.life <= 0) continue;
-
-      for (let i2 = 0; i2 < l; i2++) {
-        let otherFish = state.fishes[i2];
-        if (otherFish.life <= 0) continue;
-        if (fish.name === otherFish.name) continue; // a fish will not attack himself.
-
-        const _distance = distance(fish.location, otherFish.location);
-        if (_distance > 32) continue; // fishes that are too far appart to attack each other.
-
-        // Set both fish and otherFish fightMode to true, so they stop swimming.
-        fish.fightMode = true;
-        otherFish.fightMode = true;
-
-        let attackBonus = fish.attack - otherFish.defence;
-        if (attackBonus < 2) attackBonus = 2;
-        if (dice() <= attackBonus) {
-          const damage = dice();
-          otherFish.life -= damage;
-          console.log(`${fish.name} bites ${otherFish.name} for ${damage} damage${damage > 1 ? 's' : ''}.`); /* eslint no-console: 0 */
-        } else {
-          console.log(`${fish.name} tries to bite ${otherFish.name} but misses.`); /* eslint no-console: 0 */
-        }
-
-        if (otherFish.life <= 0) {
-          fish.fightMode = false;
-          const bonusLife = dice() + dice() + dice();
-          fish.life += bonusLife;
-          fish.killList.push(otherFish.name);
-          console.log(`${otherFish.name} has died, eaten by ${fish.name}.`); /* eslint no-console: 0 */
-          console.log(`${fish.name} wins a bonus ${bonusLife} life!`); /* eslint no-console: 0 */
-        }
-      }
-    }
+    // All fishes that are near each other will fight (except the Blessed Fish, if present).
+    state.fishes = fight(state.fishes, dataStore, id);
 
     // Remove dead fishes.
     state.fishes = state.fishes.filter(fish => fish.life > 0);

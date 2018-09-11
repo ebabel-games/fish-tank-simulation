@@ -1,6 +1,6 @@
 {
   "name": "fish-tank-simulation",
-  "version": "1.4.0",
+  "version": "1.6.3",
   "description": "Fish tank simulation.",
   "main": "src/index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "mocha": "node ./node_modules/.bin/mocha --exit",
     "eslint": "node ./node_modules/.bin/eslint ./src/*.js ./src/**/*.js",
     "production": "export NODE_ENV=production&& node ./src/index.js",
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js",
+    "now-start": "npm run production"
   },
   "repository": {
     "type": "git",
