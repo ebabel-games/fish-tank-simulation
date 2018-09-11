@@ -4,7 +4,7 @@ const height = width / 2;                       // y
 const depth = height;                           // z
 
 const createAquarium = (dataStore, tick = 0) => {
-  dataStore.logs.push(`[${tick}]: fish tank simulation starts.`);
+  dataStore.logs.push(`[${tick}] fish tank simulation starts.`);
 
   return {
     tick,
