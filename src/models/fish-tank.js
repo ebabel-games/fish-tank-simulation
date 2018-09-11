@@ -3,7 +3,7 @@ const width = Math.ceil(goldenRatio * 100) * 2; // x
 const height = width / 2;                       // y
 const depth = height;                           // z
 
-const createAquarium = (dataStore, tick = 0) => {
+const createFishTank = (dataStore, tick = 0) => {
   dataStore.logs.push(`[${tick}] fish tank simulation starts.`);
 
   return {
@@ -20,5 +20,5 @@ const createAquarium = (dataStore, tick = 0) => {
 };
 
 module.exports = {
-  createAquarium
+  createFishTank
 };

@@ -1,6 +1,6 @@
 {
   "dataStore": {
-    "get": "List all data stored in the API. Could be a lot of data."
+    "get": "List the number of records stored and the last record of each collection: fishes, ticks, and logs."
   },
   "fishes": {
     "get": "List all the fishes ever spawned, regardless of their current status, and with their default spawn characteristics.",

@@ -1,5 +1,5 @@
 # Fish tank simulation
-Node.js server-side simulation of an aquarium
+Node.js server-side simulation of an fishTank
 
 ## Install
 You need Node.js and npm from https://nodejs.org/

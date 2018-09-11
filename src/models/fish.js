@@ -38,7 +38,7 @@ const createFish = (dataStore) => {
     attack: positive((strength * 3) - (agility * 1.5)),
     defence: positive((agility * 3) - (strength * 1.5)),
     tick,
-    location: randomLocation(dataStore.aquarium.dimensions),
+    location: randomLocation(dataStore.fishTank.dimensions),
     fightMode: false,
     killList: []
   };
@@ -55,19 +55,19 @@ const swim = (fishes, dataStore) => fishes.map((_fish) => {
     _fish.location[2] + randomPosOrNeg(4),
   ];
 
-  // If the next location x coordinate would fall outside the bounding box of the aquarium,
+  // If the next location x coordinate would fall outside the bounding box of the fishTank,
   // restrain the next fish location to its current one.
-  if (nextLocation[0] < dataStore.aquarium.minX || nextLocation[0] > dataStore.aquarium.maxX) {
+  if (nextLocation[0] < dataStore.fishTank.minX || nextLocation[0] > dataStore.fishTank.maxX) {
     nextLocation[0] = _fish.location[0];
   }
 
   // y.
-  if (nextLocation[1] < dataStore.aquarium.minY || nextLocation[1] > dataStore.aquarium.maxY) {
+  if (nextLocation[1] < dataStore.fishTank.minY || nextLocation[1] > dataStore.fishTank.maxY) {
     nextLocation[1] = _fish.location[1];
   }
 
   // z.
-  if (nextLocation[2] < dataStore.aquarium.minZ || nextLocation[2] > dataStore.aquarium.maxZ) {
+  if (nextLocation[2] < dataStore.fishTank.minZ || nextLocation[2] > dataStore.fishTank.maxZ) {
     nextLocation[2] = _fish.location[2];
   }
 
