@@ -16,6 +16,11 @@ const createBlessedFish = (dataStore) => {
   };
 };
 
+// Check whether the Blessed Fish is currently swimming in the fish tank.
+const blessedFishIsPresent = (dataStore) =>
+  dataStore.ticks[dataStore.ticks.length - 1].fishes
+    .filter(fish => fish.name === 'Blessed Fish').length === 0;
+
 const createFish = (dataStore) => {
   const strength = trait();
   const stamina = trait();
@@ -25,7 +30,7 @@ const createFish = (dataStore) => {
 
   // Spawn the rare Blessed Fish?
   // There can be only one Blessed Fish, so check the last tick doesn't already have the Blessed Fish.
-  if (random(999) === 333 && dataStore.ticks[dataStore.ticks.length - 1].fishes.filter(fish => fish.name === 'Blessed Fish').length === 0) {
+  if (random(999) === 333 && !blessedFishIsPresent()) {
     return createBlessedFish(dataStore);
   }
 
