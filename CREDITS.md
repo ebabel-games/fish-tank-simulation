@@ -16,3 +16,6 @@ Source: https://threejs.org/
 
 ## Orbit Controls
 Source: https://threejs.org/docs/#examples/controls/OrbitControls
+
+## THREEx WindowResize
+Source: https://raw.githubusercontent.com/jeromeetienne/threex.windowresize/master/threex.windowresize.js
