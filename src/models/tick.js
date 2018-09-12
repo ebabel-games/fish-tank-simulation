@@ -15,8 +15,10 @@ const createTick = (dataStore, tick) => {
     throw new Error('Tick already exists and cannot be created.');
   }
 
+  const logs = [];
+
   let increment = 1;
-  return new Array(ticksToCreate).fill({}).map(() => {
+  const ticks = new Array(ticksToCreate).fill({}).map(() => {
     // Current tick id.
     const id = (dataStore.ticks.length === 0) ? 0 : _highestTick + increment;
     increment = increment + 1;
@@ -38,11 +40,15 @@ const createTick = (dataStore, tick) => {
     if (fish && fish.length > 0) {
       state.fishes.push(deepCopy(fish[0]));
       // Log the fact that fish has spawned.
-      dataStore.logs.push(`[${id}] ${fish[0].name} spawns with ${fish[0].life} life at ${JSON.stringify(fish[0].location)}.`);
+      const message = `[${id}] ${fish[0].name} spawns with ${fish[0].life} life at ${JSON.stringify(fish[0].location)}.`;
+      dataStore.logs.push(message);
+      logs.push(message);
     }
 
     // All fishes that are near each other will fight (except the Blessed Fish, if present).
-    state.fishes = fight(state.fishes, dataStore, id);
+    const result = fight(state.fishes, dataStore, logs, id);
+    state.fishes = result.fishes;
+    logs.concat(result.logs);
 
     // Remove dead fishes.
     state.fishes = state.fishes.filter(fish => fish.life > 0);
@@ -52,6 +58,11 @@ const createTick = (dataStore, tick) => {
 
     return state;
   });
+
+  return {
+    ticks,
+    logs
+  };
 };
 
 module.exports = {

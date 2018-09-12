@@ -82,7 +82,7 @@ const swim = (fishes, dataStore) => fishes.map((_fish) => {
 });
 
 // fish attacks otherFish. In loop, all combinations are considered.
-const fight = (fishes, dataStore, tick) => {
+const fight = (fishes, dataStore, log = [], tick) => {
   for (let i = 0, l = fishes.length; i < l; i++) {
     const fish = fishes[i]; // Attacking fish.
     if (fish.life <= 0 || fish.name === 'Blessed Fish') continue;
@@ -104,16 +104,22 @@ const fight = (fishes, dataStore, tick) => {
       if (dice() <= attackBonus) {
         const damage = dice();
         otherFish.life -= damage;
-        dataStore.logs.push(`[${tick}] ${fish.name} bites ${otherFish.name} for ${damage} damage${damage > 1 ? 's' : ''}.`);
+        const message = `[${tick}] ${fish.name} bites ${otherFish.name} for ${damage} damage${damage > 1 ? 's' : ''}.`;
+        dataStore.logs.push(message);
+        log.push(message);
       } else {
-        dataStore.logs.push(`[${tick}] ${fish.name} tries to bite ${otherFish.name} but misses.`);
+        const message = `[${tick}] ${fish.name} tries to bite ${otherFish.name} but misses.`;
+        dataStore.logs.push(message);
+        log.push(message);
       }
 
       // When the Blessed Fish gets attacked, if he still alive, he will heal the attacking fish.
       if (otherFish.name === 'Blessed Fish' && otherFish.life > 0) {
         const healing = random(3);
         fish.life += healing;
-        dataStore.logs.push(`[${tick}] ${fish.name} is healed for ${healing} life by ${otherFish.name}!`);
+        const message = `[${tick}] ${fish.name} is healed for ${healing} life by ${otherFish.name}!`;
+        dataStore.logs.push(message);
+        log.push(message);
       }
 
       if (otherFish.life <= 0) {
@@ -121,13 +127,21 @@ const fight = (fishes, dataStore, tick) => {
         const bonusLife = dice() + dice() + dice();
         fish.life += bonusLife;
         fish.killList.push(otherFish.name);
-        dataStore.logs.push(`[${tick}] ${otherFish.name} has died, eaten by ${fish.name}.`);
-        dataStore.logs.push(`[${tick}] ${fish.name} wins a bonus ${bonusLife} life!`);
+        let message = `[${tick}] ${otherFish.name} has died, eaten by ${fish.name}.`;
+        dataStore.logs.push(message);
+        log.push(message);
+
+        message = `[${tick}] ${fish.name} wins a bonus ${bonusLife} life!`;
+        dataStore.logs.push(message);
+        log.push(message);
       }
     }
   }
 
-  return fishes;
+  return {
+    fishes,
+    log
+  };
 };
 
 module.exports = {

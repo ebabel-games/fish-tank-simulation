@@ -22,12 +22,16 @@ module.exports = (dataStore) => {
     },
     putTick: (req, res) => {
       const _host = host(req.connection, req.headers);
-      const ticks = createTick(dataStore);
+      const {
+        ticks,
+        logs
+      } = createTick(dataStore);
 
       res.status(201);
       res.json({
         description: descriptions.ticks.put,
         ticks,
+        logs,
         links: [
           {
             method: 'GET',
