@@ -19,4 +19,8 @@ Source: https://raw.githubusercontent.com/jeromeetienne/threex.windowresize/mast
 # Sand and sand map
 - sand.png
 - sand-map.png
-https://alastaira.wordpress.com/2014/10/07/underwater-effects/
+Source: https://alastaira.wordpress.com/2014/10/07/underwater-effects/
+
+# Soil beach
+- soil-beach.jpg
+Source: https://www.textures.com/download/soilbeach0111/48724

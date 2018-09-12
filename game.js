@@ -27,10 +27,6 @@ const updateLogs = (logs) => {
   logsWindow.scrollTop = logsWindow.scrollHeight;
 }
 
-const updateTotalParticles = (response) => {
-  totalParticles += 1;
-};
-
 const callApi = (method = 'GET', endpoint) => {
   const url = `${domain}${endpoint}`;
   const xhr = new XMLHttpRequest();
@@ -39,7 +35,6 @@ const callApi = (method = 'GET', endpoint) => {
     if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 201)) {
       const response = JSON.parse(xhr.response);
       updateLogs(response.logs);
-      updateTotalParticles(response);
     }
   };
   xhr.send();
@@ -66,25 +61,26 @@ const light = new THREE.PointLight(0xffffff);
 light.position.set(0, 250, 0);
 scene.add(light);
 
-const floorTexture = new THREE.TextureLoader().load('assets/sand.png');
+// Ground.
+const floorTexture = new THREE.TextureLoader().load('assets/soil-beach.jpg');
 floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
-floorTexture.repeat.set(10, 10);
+floorTexture.repeat.set(100, 100);
 const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
-const floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
+const floorGeometry = new THREE.PlaneGeometry(10000, 10000, 100, 100);
 const floor = new THREE.Mesh(floorGeometry, floorMaterial);
 floor.position.y = -1;
 floor.rotation.x = Math.PI / 2;
 scene.add(floor);
 
 // Skybox.
-// Note: skybox works better for alpha blending with images.
+// Note: skybox works better for alpha blending with sprite images.
 const skyBoxGeometry = new THREE.CubeGeometry(10000, 10000, 10000);
 const skyBoxMaterial = new THREE.MeshBasicMaterial({ color: 0x3c6478, side: THREE.BackSide });
 const skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
 scene.add(skyBox);
 
 // Underwater fog.
-const fog = new THREE.FogExp2(0x3c6478, 0.005);
+const fog = new THREE.FogExp2(0x3c6478, 0.0005);
 scene.fog = fog;
 
 // Particles setup.
@@ -92,7 +88,7 @@ const particleTexture = new THREE.TextureLoader().load('assets/spark.png');
 const particleGroup = new THREE.Object3D();
 particleGroup.position.y = 55;
 const particleAttributes = { startSize: [], startPosition: [], randomness: [] };
-let totalParticles = 1;
+let totalParticles = 18;
 const radiusRange = 50;
 
 for (let i = 0; i < totalParticles; i++) {
