@@ -1045,13 +1045,19 @@
       logsWindow.scrollTop = logsWindow.scrollHeight;
     }
 
+    const updateTotalParticles = (response) => {
+      totalParticles += 1;
+    };
+
     const callApi = (method = 'GET', endpoint) => {
       const url = `${domain}${endpoint}`;
       const xhr = new XMLHttpRequest();
       xhr.open(method, url, true);
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 201)) {
-          updateLogs(JSON.parse(xhr.response).logs);
+          const response = JSON.parse(xhr.response);
+          updateLogs(response.logs);
+          updateTotalParticles(response);
         }
       };
       xhr.send();
@@ -1100,7 +1106,7 @@
     const particleGroup = new THREE.Object3D();
     particleGroup.position.y = 55;
     const particleAttributes = { startSize: [], startPosition: [], randomness: [] };
-    const totalParticles = 18;
+    let totalParticles = 1;
     const radiusRange = 50;
 
     for (let i = 0; i < totalParticles; i++) {
