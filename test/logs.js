@@ -17,12 +17,27 @@ describe('API logs entity', () => {
       .get('/logs')
       .set('Accept', 'application/json')
       .end((err, res) => {
-        //console.log(`1: ${JSON.stringify(res.body.logs[0])}`);  
+        //console.log(`1: ${JSON.stringify(res.body)}`);  
         if (err) console.error(err);   /* eslint no-console: 0 */
         expect(res).to.have.status(200);
         expect(res.type).to.eql('application/json');
         assert(Array.isArray(res.body.logs));
         expect(res.body.description).to.eql(descriptions.logs.get);
+        done();
+      });
+  });
+
+  it('should return an array of logs with 0 element: [0] fish tank simulation starts.', (done) => {
+    chai.request(Index)
+      .get('/logs')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        //console.log(`1: ${res.body.logs[0]}`);  
+        if (err) console.error(err);   /* eslint no-console: 0 */
+        expect(res).to.have.status(200);
+        expect(res.type).to.eql('application/json');
+        assert(Array.isArray(res.body.logs));
+        expect(res.body.logs[0]).to.eql("[0] fish tank simulation starts.");
         done();
       });
   });
