@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ebabel-eu/fish-tank-simulation.git"
+    "url": "git+https://github.com/ebabel-games/fish-tank-simulation.git"
   },
   "keywords": [
     "simulation"
@@ -24,18 +24,18 @@
   ],
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/ebabel-eu/fish-tank-simulation/issues"
+    "url": "https://github.com/ebabel-games/fish-tank-simulation/issues"
   },
-  "homepage": "https://github.com/ebabel-eu/fish-tank-simulation#readme",
+  "homepage": "https://github.com/ebabel-games/fish-tank-simulation#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "chai-http": "^4.2.0",
-    "eslint": "^5.5.0",
+    "eslint": "^5.6.1",
     "mocha": "^5.2.0"
   }
 }
